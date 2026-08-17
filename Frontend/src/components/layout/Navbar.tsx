@@ -173,7 +173,7 @@ const Navbar = () => {
                 className="btn rounded-box bg-gold-500 border-gold-500/20 mr-1"
                 onClick={() =>
                   document
-                    .getElementById("pricing")
+                    .getElementById("contact")
                     ?.scrollIntoView({ behavior: "smooth" })
                 }
               >
@@ -337,7 +337,7 @@ const Navbar = () => {
                   <button
                     onClick={() => {
                       document
-                        .getElementById("pricing")
+                        .getElementById("contact")
                         ?.scrollIntoView({ behavior: "smooth" });
 
                       setIsMobileMenuOpen(false);

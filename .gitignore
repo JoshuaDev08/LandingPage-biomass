@@ -22,3 +22,26 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# =========================
+# OS files
+# =========================
+Thumbs.db
+
+*.tsbuildinfo
+
+# =========================
+# Coverage
+# =========================
+coverage/
+
+# =========================
+# Temporary files
+# =========================
+*.tmp
+*.temp
+
+.env
+.env.*
+!.env.example
+

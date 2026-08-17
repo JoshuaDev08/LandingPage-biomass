@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Leaf, Mail } from "lucide-react";
+import { useState } from "react";
+import ContactModal from "../components/ui/ContactModal";
 
 const fadeUp = {
   hidden: {
@@ -13,6 +15,7 @@ const fadeUp = {
 };
 
 export default function ContactCTA() {
+  const [isContactOpen, setIsContactOpen] = useState(false);
   return (
     <section
       id="contact"
@@ -309,7 +312,7 @@ export default function ContactCTA() {
         >
           {/* Primary CTA */}
           <a
-            href="mailto:info@earthkeepers.ph"
+            onClick={() => setIsContactOpen(true)}
             className="
               group
               inline-flex
@@ -331,6 +334,7 @@ export default function ContactCTA() {
               hover:-translate-y-1
               hover:bg-gold-400
               hover:shadow-gold-400/30
+              cursor-pointer
             "
           >
             <Mail size={17} strokeWidth={1.8} />
@@ -347,7 +351,11 @@ export default function ContactCTA() {
 
           {/* Secondary CTA */}
           <a
-            href="#about"
+            onClick={() => {
+              document
+                .getElementById("about-us")
+                ?.scrollIntoView({ behavior: "smooth" });
+            }}
             className="
               inline-flex
               h-14
@@ -422,6 +430,10 @@ export default function ContactCTA() {
           </span>
         </motion.div>
       </div>
+      <ContactModal
+        isOpen={isContactOpen}
+        onClose={() => setIsContactOpen(false)}
+      />
     </section>
   );
 }
