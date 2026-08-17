@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { BrickWall, Droplets, Flame, Zap, ArrowUpRight } from "lucide-react";
+import { BrickWall, Droplets, Flame, Zap } from "lucide-react";
 
 const applications = [
   {
