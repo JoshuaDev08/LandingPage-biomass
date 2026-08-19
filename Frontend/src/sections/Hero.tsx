@@ -25,8 +25,6 @@ export default function Hero() {
       id="home"
       className="relative flex min-h-screen items-center overflow-hidden bg-forest-950"
     >
-      {/* ================= IMAGE ================= */}
-
       <motion.div
         initial={{ scale: 1.08 }}
         animate={{ scale: 1 }}
@@ -213,7 +211,6 @@ export default function Hero() {
             className="flex flex-wrap gap-3"
           >
             <a
-              href="#solutions"
               className="
                 btn
                 btn-lg
@@ -232,7 +229,7 @@ export default function Hero() {
               "
               onClick={() =>
                 document
-                  .getElementById("about-us")
+                  .getElementById("solutions")
                   ?.scrollIntoView({ behavior: "smooth" })
               }
             >
@@ -310,7 +307,11 @@ export default function Hero() {
       </div>
 
       <motion.a
-        href="#about"
+        onClick={() => {
+          document
+            .getElementById("about-us")
+            ?.scrollIntoView({ behavior: "smooth" });
+        }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.4, duration: 0.8 }}

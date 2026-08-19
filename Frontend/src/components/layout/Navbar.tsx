@@ -182,25 +182,38 @@ const Navbar = () => {
             </div>
 
             <button
-              className={`lg:hidden w-12 h-10 rounded-lg border backdrop-blur-sm flex items-center justify-center transition-all duration-300 ${
-                isScrolled
-                  ? "bg-[#7A3B1E]/10 border-[#7A3B1E]/20"
-                  : "bg-white/10 border-white/10"
-              }`}
+              className={`
+              lg:hidden
+              flex h-10 w-12 items-center justify-center
+              rounded-xl
+              border
+              backdrop-blur-md
+              transition-all duration-300
+
+              ${
+                isWhiteText
+                  ? `
+                    border-beige-100/20
+                    bg-forest-900/30
+                    text-beige-100
+                    hover:border-gold-400/40
+                    hover:bg-forest-800/50
+                  `
+                  : `
+                    border-forest-800/15
+                    bg-beige-100/70
+                    text-forest-800
+                    hover:border-gold-500/40
+                    hover:bg-beige-200
+                  `
+              }
+            `}
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
             >
               {isMobileMenuOpen ? (
-                <X
-                  className={`w-5 h-5 transition-colors duration-300 ${
-                    isScrolled ? "text-[#2B2118]" : "text-white"
-                  }`}
-                />
+                <X className="h-5 w-5 transition-colors duration-300" />
               ) : (
-                <Menu
-                  className={`w-5 h-5 transition-colors duration-300 ${
-                    isScrolled ? "text-[#2B2118]" : "text-white"
-                  }`}
-                />
+                <Menu className="h-5 w-8 transition-colors duration-300" />
               )}
             </button>
           </div>
@@ -303,28 +316,28 @@ const Navbar = () => {
                         duration: 0.3,
                       }}
                       className="
-                  group
-                  relative
-                  flex items-center
-                  px-4 py-3
-                  rounded-xl
-                  text-[#2B2118]
-                  font-medium
-                  transition-all duration-300
-                  hover:bg-[#7A3B1E]/8
-                  hover:text-[#7A3B1E]
-                "
+                        group
+                        relative
+                        flex items-center
+                        px-4 py-3
+                        rounded-xl
+                        text-[#2B2118]
+                        font-medium
+                        transition-all duration-300
+                        hover:bg-[#7A3B1E]/8
+                        hover:text-[#7A3B1E]
+                      "
                     >
                       {/* Active/hover indicator */}
                       <span
                         className="
-                    absolute left-0
-                    w-1 h-0
-                    rounded-full
-                    bg-[#C49A3A]
-                    transition-all duration-300
-                    group-hover:h-6
-                  "
+                        absolute left-0
+                        w-1 h-0
+                        rounded-full
+                        bg-[#C49A3A]
+                        transition-all duration-300
+                        group-hover:h-6
+                      "
                       />
 
                       {link.name}
@@ -343,18 +356,18 @@ const Navbar = () => {
                       setIsMobileMenuOpen(false);
                     }}
                     className="
-                w-full
-                h-12
-                rounded-xl
-                bg-[#C49A3A]
-                border border-[#C49A3A]
-                text-[#2B2118]
-                font-semibold
-                shadow-[0_6px_20px_rgba(196,154,58,0.25)]
-                hover:bg-[#B58B32]
-                hover:-translate-y-0.5
-                transition-all duration-300
-              "
+                      w-full
+                      h-12
+                      rounded-xl
+                      bg-[#C49A3A]
+                      border border-[#C49A3A]
+                      text-[#2B2118]
+                      font-semibold
+                      shadow-[0_6px_20px_rgba(196,154,58,0.25)]
+                      hover:bg-[#B58B32]
+                      hover:-translate-y-0.5
+                      transition-all duration-300
+                    "
                   >
                     Partner With Us
                   </button>

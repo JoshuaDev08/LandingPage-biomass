@@ -70,11 +70,11 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
     } catch (error) {
       console.error("Contact form error:", error);
 
-    alert(
-      error instanceof Error
-        ? error.message
-        : "Something went wrong. Please try again."
-    );
+      alert(
+        error instanceof Error
+          ? error.message
+          : "Something went wrong. Please try again."
+      );
     }
 
     setSubmitted(true);
@@ -97,17 +97,21 @@ export default function ContactModal({ isOpen, onClose }: ContactModalProps) {
       {/* Modal Box */}
       <div
         className="
-          modal-box
-          w-11/12
-          max-w-2xl
-          overflow-hidden
-          rounded-3xl
-          border
-          border-beige-200
-          bg-beige-50
-          p-0
-          shadow-2xl
-        "
+        modal-box
+        w-full
+        max-w-2xl
+        max-h-[92vh]
+        overflow-y-auto
+        rounded-t-3xl
+        rounded-b-none
+        border
+        border-beige-200
+        bg-beige-50
+        p-0
+        shadow-2xl
+        sm:w-11/12
+        sm:rounded-3xl
+      "
       >
         {/* Header */}
         <div className="border-b border-beige-200 px-6 py-6 sm:px-8">
