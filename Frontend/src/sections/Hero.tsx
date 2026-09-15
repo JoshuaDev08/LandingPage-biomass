@@ -1,5 +1,13 @@
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Check, ChevronDown } from "lucide-react";
+import {
+  ArrowRight,
+  Check,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
+import { heroImages } from "../context/heroData";
 
 const trustItems = [
   "Community-Driven",
@@ -20,33 +28,67 @@ const fadeUp = {
 };
 
 export default function Hero() {
+  const [activeImage, setActiveImage] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveImage((prev) => (prev + 1) % heroImages.length);
+    }, 6500);
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const nextImage = () => {
+    setActiveImage((prev) => (prev + 1) % heroImages.length);
+  };
+
+  const previousImage = () => {
+    setActiveImage(
+      (prev) => (prev - 1 + heroImages.length) % heroImages.length
+    );
+  };
+
   return (
     <section
       id="home"
       className="relative flex min-h-screen items-center overflow-hidden bg-forest-950"
     >
-      <motion.div
-        initial={{ scale: 1.08 }}
-        animate={{ scale: 1 }}
-        transition={{ duration: 1.4, ease: "easeOut" }}
-        className="absolute inset-0 z-0"
-      >
-        <img
-          src="https://images.unsplash.com/photo-1709390077398-d2d430d2df67?w=1920&h=1080&fit=crop&auto=format"
-          alt=""
-          className="h-full w-full object-cover"
-        />
-      </motion.div>
+      {/* ================= BACKGROUND CAROUSEL ================= */}
+
+      <div className="absolute inset-0 z-0">
+        {heroImages.map((image, index) => (
+          <motion.img
+            key={image.src}
+            src={image.src}
+            alt={index === activeImage ? image.alt : ""}
+            initial={{ opacity: 0, scale: 1.08 }}
+            animate={{
+              opacity: index === activeImage ? 1 : 0,
+              scale: index === activeImage ? 1 : 1.08,
+            }}
+            transition={{
+              opacity: {
+                duration: 1.2,
+                ease: "easeInOut",
+              },
+              scale: {
+                duration: 7,
+                ease: "easeOut",
+              },
+            }}
+            className="absolute inset-0 h-full w-full object-cover"
+            aria-hidden={index !== activeImage}
+          />
+        ))}
+      </div>
 
       {/* ================= DARK OVERLAY ================= */}
 
-      {/* Overall dark overlay */}
       <div
         className="absolute inset-0 z-10 bg-forest-950/50"
         aria-hidden="true"
       />
 
-      {/* Darker left side */}
       <div
         className="
           absolute
@@ -60,7 +102,6 @@ export default function Hero() {
         aria-hidden="true"
       />
 
-      {/* Darker bottom */}
       <div
         className="
           absolute
@@ -73,6 +114,8 @@ export default function Hero() {
         "
         aria-hidden="true"
       />
+
+      {/* ================= AMBIENT GLOW ================= */}
 
       <motion.div
         animate={{
@@ -97,7 +140,9 @@ export default function Hero() {
         "
       />
 
-      <div
+      {/* ================= HERO CONTENT ================= */}
+
+      <motion.div
         className="
           relative
           z-20
@@ -211,6 +256,7 @@ export default function Hero() {
             className="flex flex-wrap gap-3"
           >
             <a
+              href="#solutions"
               className="
                 btn
                 btn-lg
@@ -227,18 +273,19 @@ export default function Hero() {
                 duration-300
                 hover:bg-gold-400
               "
-              onClick={() =>
+              onClick={(e) => {
+                e.preventDefault();
                 document
                   .getElementById("solutions")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
             >
               Explore Solutions
               <ArrowRight size={17} />
             </a>
 
             <a
-              href="#about"
+              href="#about-us"
               className="
                 btn
                 rounded-box
@@ -255,11 +302,12 @@ export default function Hero() {
                 duration-300
                 hover:bg-white/10
               "
-              onClick={() =>
+              onClick={(e) => {
+                e.preventDefault();
                 document
                   .getElementById("about-us")
-                  ?.scrollIntoView({ behavior: "smooth" })
-              }
+                  ?.scrollIntoView({ behavior: "smooth" });
+              }}
             >
               Our Mission
             </a>
@@ -298,16 +346,78 @@ export default function Hero() {
                 "
               >
                 <Check size={13} strokeWidth={2.5} className="text-moss-300" />
-
                 {item}
               </div>
             ))}
           </motion.div>
         </div>
+      </motion.div>
+
+      {/* ================= CAROUSEL CONTROLS ================= */}
+
+      <div className="absolute bottom-8 right-6 z-30 flex items-center gap-4 md:right-12">
+        {/* Previous / Next */}
+        <div className="hidden items-center gap-2 sm:flex">
+          <button
+            type="button"
+            onClick={previousImage}
+            aria-label="Previous hero image"
+            className="
+              flex h-9 w-9 items-center justify-center
+              rounded-full border border-white/20
+              bg-white/5 text-white/70
+              backdrop-blur-md
+              transition-all duration-300
+              hover:bg-white/15 hover:text-white
+            "
+          >
+            <ChevronLeft size={16} />
+          </button>
+
+          <button
+            type="button"
+            onClick={nextImage}
+            aria-label="Next hero image"
+            className="
+              flex h-9 w-9 items-center justify-center
+              rounded-full border border-white/20
+              bg-white/5 text-white/70
+              backdrop-blur-md
+              transition-all duration-300
+              hover:bg-white/15 hover:text-white
+            "
+          >
+            <ChevronRight size={16} />
+          </button>
+        </div>
+
+        {/* Dots */}
+        <div className="flex items-center gap-2">
+          {heroImages.map((_, index) => (
+            <button
+              key={index}
+              type="button"
+              onClick={() => setActiveImage(index)}
+              aria-label={`Go to hero image ${index + 1}`}
+              className={`
+                h-1.5 rounded-full transition-all duration-500
+                ${
+                  activeImage === index
+                    ? "w-8 bg-gold-300"
+                    : "w-1.5 bg-white/35 hover:bg-white/60"
+                }
+              `}
+            />
+          ))}
+        </div>
       </div>
 
+      {/* ================= SCROLL INDICATOR ================= */}
+
       <motion.a
-        onClick={() => {
+        href="#about-us"
+        onClick={(e) => {
+          e.preventDefault();
           document
             .getElementById("about-us")
             ?.scrollIntoView({ behavior: "smooth" });
