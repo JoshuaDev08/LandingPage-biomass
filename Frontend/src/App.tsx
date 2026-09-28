@@ -12,7 +12,7 @@ import ContactCTA from "./sections/CTAcontact";
 import Footer from "./components/layout/Footer";
 import AssetPreloader from "./components/assetPreLoader/assetpreloader";
 
-const criticalImages = [];
+const criticalImages: string[] = [];
 
 const heroVideo = "/videos/eco-biomass-hero.mp4";
 
