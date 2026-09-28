@@ -11,6 +11,8 @@ import Mission from "./sections/OurMission";
 import ContactCTA from "./sections/CTAcontact";
 import Footer from "./components/layout/Footer";
 import AssetPreloader from "./components/assetPreLoader/assetpreloader";
+import { Toaster } from "sileo";
+import "sileo/styles.css";
 
 const criticalImages: string[] = [];
 
@@ -19,6 +21,7 @@ const heroVideo = "/videos/eco-biomass-hero.mp4";
 function App() {
   return (
     <AssetPreloader images={criticalImages} video={heroVideo}>
+      <Toaster position="top-right" />
       <Navbar />
       <main>
         <Hero />
