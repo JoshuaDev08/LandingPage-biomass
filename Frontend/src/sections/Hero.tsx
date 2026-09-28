@@ -1,13 +1,5 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import {
-  ArrowRight,
-  Check,
-  ChevronDown,
-  ChevronLeft,
-  ChevronRight,
-} from "lucide-react";
-import { heroImages } from "../context/heroData";
+import { ArrowRight, Check, ChevronDown } from "lucide-react";
 
 const trustItems = [
   "Community-Driven",
@@ -28,26 +20,6 @@ const fadeUp = {
 };
 
 export default function Hero() {
-  const [activeImage, setActiveImage] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setActiveImage((prev) => (prev + 1) % heroImages.length);
-    }, 6500);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const nextImage = () => {
-    setActiveImage((prev) => (prev + 1) % heroImages.length);
-  };
-
-  const previousImage = () => {
-    setActiveImage(
-      (prev) => (prev - 1 + heroImages.length) % heroImages.length
-    );
-  };
-
   return (
     <section
       id="home"
@@ -55,31 +27,20 @@ export default function Hero() {
     >
       {/* ================= BACKGROUND CAROUSEL ================= */}
 
-      <div className="absolute inset-0 z-0">
-        {heroImages.map((image, index) => (
-          <motion.img
-            key={image.src}
-            src={image.src}
-            alt={index === activeImage ? image.alt : ""}
-            initial={{ opacity: 0, scale: 1.08 }}
-            animate={{
-              opacity: index === activeImage ? 1 : 0,
-              scale: index === activeImage ? 1 : 1.08,
-            }}
-            transition={{
-              opacity: {
-                duration: 1.2,
-                ease: "easeInOut",
-              },
-              scale: {
-                duration: 7,
-                ease: "easeOut",
-              },
-            }}
-            className="absolute inset-0 h-full w-full object-cover"
-            aria-hidden={index !== activeImage}
-          />
-        ))}
+      {/* ================= HERO MEDIA ================= */}
+
+      <div className="absolute inset-0 z-0 overflow-hidden">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+        >
+          <source src="/videos/eco-biomass-hero.mp4" type="video/mp4" />
+        </video>
       </div>
 
       {/* ================= DARK OVERLAY ================= */}
@@ -90,28 +51,12 @@ export default function Hero() {
       />
 
       <div
-        className="
-          absolute
-          inset-0
-          z-10
-          bg-gradient-to-r
-          from-forest-950/90
-          via-forest-950/60
-          to-transparent
-        "
+        className=" absolute inset-0 z-10 bg-gradient-to-r from-forest-950/90 via-forest-950/60 to-transparent"
         aria-hidden="true"
       />
 
       <div
-        className="
-          absolute
-          inset-0
-          z-10
-          bg-gradient-to-t
-          from-forest-950/80
-          via-transparent
-          to-transparent
-        "
+        className=" absolute inset-0 z-10 bg-gradient-to-t from-forest-950/80 via-transparent to-transparent"
         aria-hidden="true"
       />
 
@@ -128,16 +73,16 @@ export default function Hero() {
           ease: "easeInOut",
         }}
         className="
-          absolute
-          -right-40
-          top-1/4
-          z-10
-          h-96
-          w-96
-          rounded-full
-          bg-moss-500/20
-          blur-3xl
-        "
+    absolute
+    -right-40
+    top-1/4
+    z-10
+    h-96
+    w-96
+    rounded-full
+    bg-moss-500/20
+    blur-3xl
+  "
       />
 
       {/* ================= HERO CONTENT ================= */}
@@ -352,65 +297,6 @@ export default function Hero() {
           </motion.div>
         </div>
       </motion.div>
-
-      {/* ================= CAROUSEL CONTROLS ================= */}
-
-      <div className="absolute bottom-8 right-6 z-30 flex items-center gap-4 md:right-12">
-        {/* Previous / Next */}
-        <div className="hidden items-center gap-2 sm:flex">
-          <button
-            type="button"
-            onClick={previousImage}
-            aria-label="Previous hero image"
-            className="
-              flex h-9 w-9 items-center justify-center
-              rounded-full border border-white/20
-              bg-white/5 text-white/70
-              backdrop-blur-md
-              transition-all duration-300
-              hover:bg-white/15 hover:text-white
-            "
-          >
-            <ChevronLeft size={16} />
-          </button>
-
-          <button
-            type="button"
-            onClick={nextImage}
-            aria-label="Next hero image"
-            className="
-              flex h-9 w-9 items-center justify-center
-              rounded-full border border-white/20
-              bg-white/5 text-white/70
-              backdrop-blur-md
-              transition-all duration-300
-              hover:bg-white/15 hover:text-white
-            "
-          >
-            <ChevronRight size={16} />
-          </button>
-        </div>
-
-        {/* Dots */}
-        <div className="flex items-center gap-2">
-          {heroImages.map((_, index) => (
-            <button
-              key={index}
-              type="button"
-              onClick={() => setActiveImage(index)}
-              aria-label={`Go to hero image ${index + 1}`}
-              className={`
-                h-1.5 rounded-full transition-all duration-500
-                ${
-                  activeImage === index
-                    ? "w-8 bg-gold-300"
-                    : "w-1.5 bg-white/35 hover:bg-white/60"
-                }
-              `}
-            />
-          ))}
-        </div>
-      </div>
 
       {/* ================= SCROLL INDICATOR ================= */}
 

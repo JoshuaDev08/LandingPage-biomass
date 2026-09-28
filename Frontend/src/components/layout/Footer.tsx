@@ -1,4 +1,5 @@
 import { useCallback } from "react";
+import Logo from "../../assets/Logo.png";
 
 const companyLinks = [
   { label: "About Us", href: "#about" },
@@ -83,32 +84,11 @@ export default function Footer() {
               className="group mb-6 inline-flex items-center gap-3"
             >
               {/* Logo */}
-              <div
-                className="
-                  flex h-11 w-11 items-center justify-center
-                  rounded-full
-                  border border-gold-500/50
-                  bg-forest-900
-                  text-gold-400
-                  transition-all duration-300
-                  group-hover:border-gold-400
-                  group-hover:bg-forest-800
-                "
-              >
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17.5 3 17.5 3s2 5-1.5 9.5A7 7 0 0 1 11 20Z" />
-                  <path d="M11 20c0-3.5 1.5-6 4-8" />
-                </svg>
-              </div>
+              <img
+                src={Logo}
+                alt="Eco-Biomass Solution"
+                className="w-12 h-12 rounded-full object-cover"
+              />
 
               <div>
                 <div className="font-display text-base font-semibold leading-none text-beige-200">
