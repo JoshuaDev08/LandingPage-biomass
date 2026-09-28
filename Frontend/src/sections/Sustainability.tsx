@@ -1,5 +1,7 @@
 import { motion } from "framer-motion";
 import { Users, Sprout, HandHeart, Leaf } from "lucide-react";
+import IP from "/images/IP.jpg";
+import People from "/images/PEOPLE.jpg";
 
 const impactItems = [
   {
@@ -86,7 +88,7 @@ export default function Sustainability() {
               "
             >
               <img
-                src="https://images.unsplash.com/photo-1764323064842-379a89ada809?w=900&h=700&fit=crop&auto=format"
+                src={People}
                 alt="Community members working together in a rural environment"
                 className="
                   h-[460px]
@@ -209,7 +211,7 @@ export default function Sustainability() {
               "
             >
               <img
-                src="https://images.unsplash.com/photo-1707235164150-50ae8add80c4?w=300&h=300&fit=crop&auto=format"
+                src={IP}
                 alt="Lush green landscape"
                 className="
                   h-full

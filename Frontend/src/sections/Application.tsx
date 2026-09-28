@@ -1,5 +1,9 @@
 import { motion } from "framer-motion";
-import { BrickWall, Droplets, Flame, Zap } from "lucide-react";
+import { BrickWall, Droplets, Flame, Zap, Atom } from "lucide-react";
+import Energy from "/images/Energy.jpeg";
+import Powerplant from "/images/power-plant.jpg";
+import Graphene from "/images/graphens.jpg";
+import Construction from "/images/construction.jpg";
 
 const applications = [
   {
@@ -8,8 +12,7 @@ const applications = [
     title: "Construction",
     description:
       "Processed wood biomass can be used as an alternative material component for construction applications, including biomass-based hollow blocks and other sustainable building materials.",
-    image:
-      "https://images.unsplash.com/photo-1565626424178-c699f6601afd?w=800&h=600&fit=crop&auto=format",
+    image: Construction,
   },
   {
     number: "02",
@@ -17,8 +20,7 @@ const applications = [
     title: "Biofuel & Energy",
     description:
       "Biomass resources can support the development of alternative fuels and energy systems, reducing dependence on conventional fossil-based sources.",
-    image:
-      "https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=800&h=600&fit=crop&auto=format",
+    image: Energy,
   },
   {
     number: "03",
@@ -35,8 +37,15 @@ const applications = [
     title: "Modular Powerplants",
     description:
       "Scalable biomass power systems can provide reliable renewable electricity for communities, businesses, and areas with limited access to energy.",
-    image:
-      "https://images.unsplash.com/photo-1508791290064-c27cc1ef7a9a?w=800&h=600&fit=crop&auto=format",
+    image: Powerplant,
+  },
+  {
+    number: "05",
+    icon: Atom,
+    title: "Biomass Graphene",
+    description:
+      "Research into converting biomass-derived carbon into graphene-based materials for advanced applications, including high-performance materials, energy technologies, and defense-related research.",
+    image: Graphene,
   },
 ];
 
@@ -178,7 +187,7 @@ export default function Applications() {
             APPLICATION CARDS
         ====================================================== */}
 
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-6">
           {applications.map((application, index) => {
             const Icon = application.icon;
 
@@ -194,23 +203,26 @@ export default function Applications() {
                   delay: index * 0.1,
                 }}
                 whileHover={{ y: -7 }}
-                className="
-                  group
-                  relative
-                  flex
-                  h-full
-                  flex-col
-                  overflow-hidden
-                  rounded-2xl
-                  border
-                  border-beige-300
-                  bg-beige-50
-                  shadow-sm
-                  transition-shadow
-                  duration-300
-                  hover:shadow-xl
-                  hover:shadow-forest-900/10
-                "
+                className={`
+                group
+                relative
+                flex
+                h-full
+                flex-col
+                overflow-hidden
+                rounded-2xl
+                border
+                border-beige-300
+                bg-beige-50
+                shadow-sm
+                transition-shadow
+                duration-300
+                hover:shadow-xl
+                hover:shadow-forest-900/10
+                lg:col-span-2
+                ${index === 3 ? "lg:col-start-2" : ""}
+                ${index === 4 ? "lg:col-start-4" : ""}
+              `}
               >
                 {/* Image */}
                 <div className="relative h-52 overflow-hidden">
@@ -301,8 +313,6 @@ export default function Applications() {
                   >
                     {application.description}
                   </p>
-
-                  
                 </div>
 
                 {/* Bottom hover line */}
