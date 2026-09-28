@@ -10,10 +10,15 @@ import Sustainability from "./sections/Sustainability";
 import Mission from "./sections/OurMission";
 import ContactCTA from "./sections/CTAcontact";
 import Footer from "./components/layout/Footer";
+import AssetPreloader from "./components/assetPreLoader/assetpreloader";
+
+const criticalImages = [];
+
+const heroVideo = "/videos/eco-biomass-hero.mp4";
 
 function App() {
   return (
-    <>
+    <AssetPreloader images={criticalImages} video={heroVideo}>
       <Navbar />
       <main>
         <Hero />
@@ -27,7 +32,7 @@ function App() {
         <ContactCTA />
       </main>
       <Footer />
-    </>
+    </AssetPreloader>
   );
 }
 

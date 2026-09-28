@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import PalawanImage from "../assets/Palawan_aboutimg.png";
 
 const stats = [
   {
@@ -250,7 +251,7 @@ export default function About() {
               <motion.img
                 whileHover={{ scale: 1.035 }}
                 transition={{ duration: 0.6 }}
-                src="https://images.unsplash.com/photo-1746616581870-464a02406494?w=900&h=700&fit=crop&auto=format"
+                src={ PalawanImage }
                 alt="Dense Philippine forest covering a verdant mountainside"
                 className="
                   h-[460px]
