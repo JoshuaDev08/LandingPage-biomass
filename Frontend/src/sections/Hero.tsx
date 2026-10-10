@@ -125,104 +125,6 @@ export default function Hero() {
         "
       />
 
-      {/* ================= BRAND SIGNATURE ================= */}
-
-      <motion.a
-        href="#home"
-        onClick={(e) => {
-          e.preventDefault();
-          scrollToSection("home");
-        }}
-        initial={{
-          opacity: 0,
-          y: -15,
-        }}
-        animate={{
-          opacity: 1,
-          y: 0,
-        }}
-        transition={{
-          duration: 0.8,
-          delay: 0.15,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-        className="
-          absolute
-          left-6
-          top-6
-          z-30
-          flex
-          items-center
-          gap-3
-          md:left-10
-          md:top-8
-          lg:left-12
-        "
-      >
-        {/* Logo */}
-        <div
-          className="
-            flex
-            h-12
-            w-12
-            shrink-0
-            items-center
-            justify-center
-            overflow-hidden
-            rounded-full
-            border
-            border-white/15
-            bg-white/10
-            shadow-lg
-            shadow-black/20
-            backdrop-blur-md
-            md:h-14
-            md:w-14
-          "
-        >
-          <img
-            src={Logo}
-            alt="Earthkeepers' Biomass Solutions Inc."
-            className="
-              h-full
-              w-full
-              object-cover
-            "
-          />
-        </div>
-
-        {/* Company Name */}
-        <div className="hidden sm:block">
-          <div
-            className="
-              font-display
-              text-[15px]
-              font-semibold
-              leading-none
-              tracking-[0.01em]
-              text-white
-              drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]
-            "
-          >
-            Earthkeepers'
-          </div>
-
-          <div
-            className="
-              mt-1
-              font-body
-              text-[8px]
-              font-medium
-              uppercase
-              tracking-[0.19em]
-              text-white/60
-            "
-          >
-            Biomass Solutions Inc.
-          </div>
-        </div>
-      </motion.a>
-
       {/* ================= HERO CONTENT ================= */}
 
       <motion.div
@@ -234,75 +136,193 @@ export default function Hero() {
           max-w-7xl
           px-6
           pb-32
-          pt-36
+          pt-20
           md:px-10
-          md:pt-40
+          md:pt-24
           lg:px-12
         "
       >
         <div className="max-w-3xl">
-          {/* Badge */}
-          <motion.div
-            variants={fadeUp}
-            initial="hidden"
-            animate="visible"
+          {/* ================= BRAND ================= */}
+
+          <motion.a
+            href="#home"
+            onClick={(e) => {
+              e.preventDefault();
+              scrollToSection("home");
+            }}
+            initial={{
+              opacity: 0,
+              y: -20,
+            }}
+            animate={{
+              opacity: 1,
+              y: 0,
+            }}
             transition={{
-              duration: 0.7,
+              duration: 0.8,
+              ease: [0.22, 1, 0.36, 1],
             }}
             className="
-              mb-7
+              group
+              mb-8
               inline-flex
               items-center
-              gap-2.5
-              rounded-full
-              border
-              border-gold-400/30
-              bg-gold-400/10
-              px-4
-              py-2
-              text-xs
-              font-semibold
-              uppercase
-              tracking-[0.18em]
-              text-gold-300
-              backdrop-blur-md
+              gap-5
             "
           >
-            <span className="relative flex h-2 w-2">
-              <span
+            {/* Large Logo */}
+            <div
+              className="
+                relative
+                flex
+                h-24
+                w-24
+                shrink-0
+                items-center
+                justify-center
+                overflow-hidden
+                rounded-full
+                border
+                border-white/20
+                bg-white/10
+                shadow-[0_15px_40px_rgba(0,0,0,0.30)]
+                backdrop-blur-md
+                transition-all
+                duration-500
+                group-hover:scale-[1.03]
+                group-hover:border-gold-300/35
+                md:h-28
+                md:w-28
+              "
+            >
+              {/* subtle highlight */}
+              <div
                 className="
+                  pointer-events-none
                   absolute
-                  inline-flex
-                  h-full
-                  w-full
-                  animate-ping
-                  rounded-full
-                  bg-gold-300
-                  opacity-60
+                  inset-0
+                  bg-gradient-to-br
+                  from-white/15
+                  via-transparent
+                  to-transparent
                 "
               />
 
-              <span
+              <img
+                src={Logo}
+                alt="Earthkeepers' Biomass Solutions Inc."
                 className="
                   relative
-                  h-2
-                  w-2
-                  rounded-full
-                  bg-gold-300
+                  h-full
+                  w-full
+                  object-cover
                 "
               />
-            </span>
-            Renewable Energy · Palawan, Philippines
-          </motion.div>
+            </div>
 
-          {/* Heading */}
+            {/* Company Name */}
+            <div>
+              <div
+                className="
+                  font-display
+                  text-xl
+                  font-semibold
+                  leading-none
+                  tracking-[0.01em]
+                  text-white
+                  drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]
+                  md:text-2xl
+                "
+              >
+                Earthkeepers'
+              </div>
+
+              <div
+                className="
+                  mt-2
+                  font-body
+                  text-[9px]
+                  font-medium
+                  uppercase
+                  tracking-[0.2em]
+                  text-white/60
+                  md:text-[10px]
+                "
+              >
+                Biomass Solutions Inc.
+              </div>
+            </div>
+          </motion.a>
+
+          {/* ================= BADGE ================= */}
+
+          <div className="block">
+            <motion.div
+              variants={fadeUp}
+              initial="hidden"
+              animate="visible"
+              transition={{
+                duration: 0.7,
+                delay: 0.08,
+              }}
+              className="
+                mb-7
+                inline-flex
+                items-center
+                gap-2.5
+                rounded-full
+                border
+                border-gold-400/30
+                bg-gold-400/10
+                px-4
+                py-2
+                text-xs
+                font-semibold
+                uppercase
+                tracking-[0.18em]
+                text-gold-300
+                backdrop-blur-md
+              "
+            >
+              <span className="relative flex h-2 w-2">
+                <span
+                  className="
+                    absolute
+                    inline-flex
+                    h-full
+                    w-full
+                    animate-ping
+                    rounded-full
+                    bg-gold-300
+                    opacity-60
+                  "
+                />
+
+                <span
+                  className="
+                    relative
+                    h-2
+                    w-2
+                    rounded-full
+                    bg-gold-300
+                  "
+                />
+              </span>
+
+              Renewable Energy · Palawan, Philippines
+            </motion.div>
+          </div>
+
+          {/* ================= HEADING ================= */}
+
           <motion.h1
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             transition={{
               duration: 0.8,
-              delay: 0.12,
+              delay: 0.16,
               ease: "easeOut",
             }}
             className="
@@ -331,14 +351,15 @@ export default function Hero() {
             <br className="hidden md:block" /> Through Biomass.
           </motion.h1>
 
-          {/* Description */}
+          {/* ================= DESCRIPTION ================= */}
+
           <motion.p
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             transition={{
               duration: 0.8,
-              delay: 0.24,
+              delay: 0.28,
             }}
             className="
               mb-10
@@ -356,14 +377,15 @@ export default function Hero() {
             sustainable materials.
           </motion.p>
 
-          {/* CTA Buttons */}
+          {/* ================= CTA BUTTONS ================= */}
+
           <motion.div
             variants={fadeUp}
             initial="hidden"
             animate="visible"
             transition={{
               duration: 0.8,
-              delay: 0.36,
+              delay: 0.4,
             }}
             className="
               flex
@@ -399,6 +421,7 @@ export default function Hero() {
               }}
             >
               Explore Solutions
+
               <ArrowRight
                 size={17}
                 className="
@@ -446,10 +469,10 @@ export default function Hero() {
             animate="visible"
             transition={{
               duration: 0.8,
-              delay: 0.48,
+              delay: 0.52,
             }}
             className="
-              mt-16
+              mt-14
               flex
               flex-wrap
               gap-x-7
@@ -471,7 +494,11 @@ export default function Hero() {
                   text-white/50
                 "
               >
-                <Check size={13} strokeWidth={2.5} className="text-moss-300" />
+                <Check
+                  size={13}
+                  strokeWidth={2.5}
+                  className="text-moss-300"
+                />
 
                 {item}
               </div>

@@ -34,6 +34,10 @@ const Navbar = () => {
       href: "#sustainability",
     },
     {
+      name: "Gallery",
+      href: "#gallery",
+    },
+    {
       name: "Contact",
       href: "#contact",
     },
@@ -107,6 +111,7 @@ const Navbar = () => {
         currentSection.id === "solutions" ||
         currentSection.id === "process" ||
         currentSection.id === "mission" ||
+        currentSection.id === "gallery" ||
         currentSection.id === "contact";
 
       setIsWhiteText(shouldBeWhite);
@@ -210,9 +215,8 @@ const Navbar = () => {
             duration-500
             ease-out
 
-            ${
-              isScrolled
-                ? `
+            ${isScrolled
+              ? `
                     rounded-2xl
                     border
                     border-white/25
@@ -220,7 +224,7 @@ const Navbar = () => {
                     shadow-[0_8px_32px_rgba(0,0,0,0.15)]
                     backdrop-blur-sm
                   `
-                : `
+              : `
                     border
                     border-transparent
                     bg-transparent
@@ -297,13 +301,12 @@ const Navbar = () => {
                   transition-all
                   duration-500
 
-                  ${
-                    isWhiteText
-                      ? `
+                  ${isWhiteText
+                    ? `
                           text-white
                           drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
                         `
-                      : "text-moss-500"
+                    : "text-moss-500"
                   }
                 `}
               >
@@ -373,13 +376,12 @@ const Navbar = () => {
                   transition-all
                   duration-500
 
-                  ${
-                    isWhiteText
-                      ? `
+                  ${isWhiteText
+                    ? `
                           text-white
                           drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
                         `
-                      : "text-moss-500"
+                    : "text-moss-500"
                   }
 
                   hover:text-gold-300
@@ -448,16 +450,15 @@ const Navbar = () => {
                 duration-300
                 lg:hidden
 
-                ${
-                  isWhiteText
-                    ? `
+                ${isWhiteText
+                  ? `
                         border-beige-100/20
                         bg-forest-900/30
                         text-beige-100
                         hover:border-gold-400/40
                         hover:bg-forest-800/50
                       `
-                    : `
+                  : `
                         border-forest-800/15
                         bg-beige-100/70
                         text-forest-800
