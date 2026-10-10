@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
-import { ArrowRight, Check, ChevronDown } from "lucide-react";
+import { ArrowRight, Check } from "lucide-react";
+import Logo from "../assets/Logo.png";
 
 const trustItems = [
   "Community-Driven",
@@ -20,18 +21,35 @@ const fadeUp = {
 };
 
 export default function Hero() {
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({
+      behavior: "smooth",
+    });
+  };
+
   return (
     <section
       id="home"
-      className="relative flex min-h-screen items-center overflow-hidden bg-forest-950"
+      className="
+        relative
+        flex
+        min-h-screen
+        items-center
+        overflow-hidden
+        bg-forest-950
+      "
     >
-      {/* ================= BACKGROUND CAROUSEL ================= */}
-
-      {/* ================= HERO MEDIA ================= */}
+      {/* ================= HERO VIDEO ================= */}
 
       <div className="absolute inset-0 z-0 overflow-hidden">
         <video
-          className="absolute inset-0 h-full w-full object-cover"
+          className="
+            absolute
+            inset-0
+            h-full
+            w-full
+            object-cover
+          "
           autoPlay
           muted
           loop
@@ -43,20 +61,41 @@ export default function Hero() {
         </video>
       </div>
 
-      {/* ================= DARK OVERLAY ================= */}
+      {/* ================= DARK OVERLAYS ================= */}
 
       <div
-        className="absolute inset-0 z-10 bg-forest-950/50"
+        className="
+          absolute
+          inset-0
+          z-10
+          bg-forest-950/50
+        "
         aria-hidden="true"
       />
 
       <div
-        className=" absolute inset-0 z-10 bg-gradient-to-r from-forest-950/90 via-forest-950/60 to-transparent"
+        className="
+          absolute
+          inset-0
+          z-10
+          bg-gradient-to-r
+          from-forest-950/90
+          via-forest-950/60
+          to-transparent
+        "
         aria-hidden="true"
       />
 
       <div
-        className=" absolute inset-0 z-10 bg-gradient-to-t from-forest-950/80 via-transparent to-transparent"
+        className="
+          absolute
+          inset-0
+          z-10
+          bg-gradient-to-t
+          from-forest-950/80
+          via-transparent
+          to-transparent
+        "
         aria-hidden="true"
       />
 
@@ -73,17 +112,116 @@ export default function Hero() {
           ease: "easeInOut",
         }}
         className="
-    absolute
-    -right-40
-    top-1/4
-    z-10
-    h-96
-    w-96
-    rounded-full
-    bg-moss-500/20
-    blur-3xl
-  "
+          pointer-events-none
+          absolute
+          -right-40
+          top-1/4
+          z-10
+          h-96
+          w-96
+          rounded-full
+          bg-moss-500/20
+          blur-3xl
+        "
       />
+
+      {/* ================= BRAND SIGNATURE ================= */}
+
+      <motion.a
+        href="#home"
+        onClick={(e) => {
+          e.preventDefault();
+          scrollToSection("home");
+        }}
+        initial={{
+          opacity: 0,
+          y: -15,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          duration: 0.8,
+          delay: 0.15,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className="
+          absolute
+          left-6
+          top-6
+          z-30
+          flex
+          items-center
+          gap-3
+          md:left-10
+          md:top-8
+          lg:left-12
+        "
+      >
+        {/* Logo */}
+        <div
+          className="
+            flex
+            h-12
+            w-12
+            shrink-0
+            items-center
+            justify-center
+            overflow-hidden
+            rounded-full
+            border
+            border-white/15
+            bg-white/10
+            shadow-lg
+            shadow-black/20
+            backdrop-blur-md
+            md:h-14
+            md:w-14
+          "
+        >
+          <img
+            src={Logo}
+            alt="Earthkeepers' Biomass Solutions Inc."
+            className="
+              h-full
+              w-full
+              object-cover
+            "
+          />
+        </div>
+
+        {/* Company Name */}
+        <div className="hidden sm:block">
+          <div
+            className="
+              font-display
+              text-[15px]
+              font-semibold
+              leading-none
+              tracking-[0.01em]
+              text-white
+              drop-shadow-[0_2px_8px_rgba(0,0,0,0.35)]
+            "
+          >
+            Earthkeepers'
+          </div>
+
+          <div
+            className="
+              mt-1
+              font-body
+              text-[8px]
+              font-medium
+              uppercase
+              tracking-[0.19em]
+              text-white/60
+            "
+          >
+            Biomass Solutions Inc.
+          </div>
+        </div>
+      </motion.a>
 
       {/* ================= HERO CONTENT ================= */}
 
@@ -95,9 +233,10 @@ export default function Hero() {
           w-full
           max-w-7xl
           px-6
-          pb-28
-          pt-32
+          pb-32
+          pt-36
           md:px-10
+          md:pt-40
           lg:px-12
         "
       >
@@ -107,7 +246,9 @@ export default function Hero() {
             variants={fadeUp}
             initial="hidden"
             animate="visible"
-            transition={{ duration: 0.7 }}
+            transition={{
+              duration: 0.7,
+            }}
             className="
               mb-7
               inline-flex
@@ -128,8 +269,28 @@ export default function Hero() {
             "
           >
             <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-300 opacity-60" />
-              <span className="relative h-2 w-2 rounded-full bg-gold-300" />
+              <span
+                className="
+                  absolute
+                  inline-flex
+                  h-full
+                  w-full
+                  animate-ping
+                  rounded-full
+                  bg-gold-300
+                  opacity-60
+                "
+              />
+
+              <span
+                className="
+                  relative
+                  h-2
+                  w-2
+                  rounded-full
+                  bg-gold-300
+                "
+              />
             </span>
             Renewable Energy · Palawan, Philippines
           </motion.div>
@@ -157,7 +318,13 @@ export default function Hero() {
             "
           >
             Powering a{" "}
-            <em className="font-display not-italic text-gold-300">
+            <em
+              className="
+                font-display
+                not-italic
+                text-gold-300
+              "
+            >
               Sustainable
             </em>{" "}
             Future
@@ -189,7 +356,7 @@ export default function Hero() {
             sustainable materials.
           </motion.p>
 
-          {/* CTA */}
+          {/* CTA Buttons */}
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -198,11 +365,17 @@ export default function Hero() {
               duration: 0.8,
               delay: 0.36,
             }}
-            className="flex flex-wrap gap-3"
+            className="
+              flex
+              flex-wrap
+              gap-3
+            "
           >
+            {/* Primary CTA */}
             <a
               href="#solutions"
               className="
+                group
                 btn
                 btn-lg
                 rounded-box
@@ -216,26 +389,34 @@ export default function Hero() {
                 shadow-gold-500/20
                 transition-all
                 duration-300
+                hover:-translate-y-0.5
                 hover:bg-gold-400
+                hover:shadow-gold-500/30
               "
               onClick={(e) => {
                 e.preventDefault();
-                document
-                  .getElementById("solutions")
-                  ?.scrollIntoView({ behavior: "smooth" });
+                scrollToSection("solutions");
               }}
             >
               Explore Solutions
-              <ArrowRight size={17} />
+              <ArrowRight
+                size={17}
+                className="
+                  transition-transform
+                  duration-300
+                  group-hover:translate-x-1
+                "
+              />
             </a>
 
+            {/* Secondary CTA */}
             <a
               href="#about-us"
               className="
                 btn
+                btn-lg
                 rounded-box
                 border
-                btn-lg
                 border-white/25
                 bg-white/5
                 px-7
@@ -245,20 +426,20 @@ export default function Hero() {
                 backdrop-blur-md
                 transition-all
                 duration-300
+                hover:border-white/40
                 hover:bg-white/10
               "
               onClick={(e) => {
                 e.preventDefault();
-                document
-                  .getElementById("about-us")
-                  ?.scrollIntoView({ behavior: "smooth" });
+                scrollToSection("about-us");
               }}
             >
-              Our Mission
+              About Us
             </a>
           </motion.div>
 
-          {/* Trust indicators */}
+          {/* ================= TRUST INDICATORS ================= */}
+
           <motion.div
             variants={fadeUp}
             initial="hidden"
@@ -291,6 +472,7 @@ export default function Hero() {
                 "
               >
                 <Check size={13} strokeWidth={2.5} className="text-moss-300" />
+
                 {item}
               </div>
             ))}
@@ -304,14 +486,22 @@ export default function Hero() {
         href="#about-us"
         onClick={(e) => {
           e.preventDefault();
-          document
-            .getElementById("about-us")
-            ?.scrollIntoView({ behavior: "smooth" });
+          scrollToSection("about-us");
         }}
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.4, duration: 0.8 }}
+        initial={{
+          opacity: 0,
+          y: 10,
+        }}
+        animate={{
+          opacity: 1,
+          y: 0,
+        }}
+        transition={{
+          delay: 1.4,
+          duration: 0.8,
+        }}
         className="
+          group
           absolute
           bottom-7
           left-1/2
@@ -320,26 +510,87 @@ export default function Hero() {
           -translate-x-1/2
           flex-col
           items-center
-          gap-2
-          text-white/35
+          gap-3
+          text-white/55
+          transition-colors
+          duration-300
+          hover:text-gold-300
           md:flex
         "
       >
-        <span className="text-[9px] font-semibold uppercase tracking-[0.25em]">
-          Scroll
+        <span
+          className="
+            font-body
+            text-[9px]
+            font-semibold
+            uppercase
+            tracking-[0.25em]
+          "
+        >
+          Scroll to Explore
         </span>
 
+        {/* Mouse Style Indicator */}
         <motion.div
-          animate={{ y: [0, 5, 0] }}
+          animate={{
+            y: [0, 4, 0],
+          }}
           transition={{
-            duration: 1.5,
+            duration: 1.8,
             repeat: Infinity,
             ease: "easeInOut",
           }}
+          className="
+            flex
+            h-9
+            w-6
+            items-start
+            justify-center
+            rounded-full
+            border
+            border-white/30
+            pt-2
+            transition-colors
+            duration-300
+            group-hover:border-gold-300/60
+          "
         >
-          <ChevronDown size={17} strokeWidth={1.5} />
+          <motion.span
+            animate={{
+              y: [0, 7, 0],
+              opacity: [1, 0.25, 1],
+            }}
+            transition={{
+              duration: 1.8,
+              repeat: Infinity,
+              ease: "easeInOut",
+            }}
+            className="
+              h-1
+              w-1
+              rounded-full
+              bg-current
+            "
+          />
         </motion.div>
       </motion.a>
+
+      {/* ================= BOTTOM FADE ================= */}
+
+      <div
+        aria-hidden="true"
+        className="
+          pointer-events-none
+          absolute
+          inset-x-0
+          bottom-0
+          z-20
+          h-20
+          bg-gradient-to-t
+          from-forest-950/30
+          to-transparent
+        "
+      />
     </section>
   );
 }
