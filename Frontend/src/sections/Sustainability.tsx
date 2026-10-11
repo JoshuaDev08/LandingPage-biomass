@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Users, Sprout, HandHeart, Leaf } from "lucide-react";
 import IP from "/images/IP.jpg";
-import People from "../assets/gallery/picnitita.png"
+import People from "../assets/picnitita.png"
 
 const impactItems = [
   {
