@@ -5,9 +5,9 @@ import GalleryOne from "../assets/gallery/gallers-1.jpg";
 import GalleryTwo from "../assets/gallery/gallerys-2.jpg";
 import GalleryThree from "../assets/gallery/gallerys-3.jpg";
 import GalleryFour from "../assets/gallery/gallerys-4.jpg";
-import GalleryFive from "../assets/gallery/gallerys-5.JPG";
+import GalleryFive from "../assets/gallery/gallerys-5.jpg";
 import GallerySix from "../assets/gallery/gallerys-6.jpg";
-import GallerySeven from "../assets/gallery/gallerys-7.JPG";
+import GallerySeven from "../assets/gallery/gallerys-7.jpg";
 import GalleryEight from "../assets/gallery/gallerys-8.jpg";
 
 const galleryItems = [
