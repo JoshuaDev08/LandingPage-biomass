@@ -8,30 +8,102 @@ const Navbar = () => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isWhiteText, setIsWhiteText] = useState(true);
 
+  // NEW:
+  // Controls whether the navbar is visible.
+  const [showNavbar, setShowNavbar] = useState(false);
+
   const navLinks = [
-    { name: "Home", href: "#home" },
-    { name: "About", href: "#about-us" },
-    { name: "Solutions", href: "#solutions" },
-    { name: "Process", href: "#process" },
-    { name: "Sustainability", href: "#sustainability" },
-    { name: "Contact", href: "#contact" },
+    {
+      name: "Home",
+      href: "#home",
+    },
+    {
+      name: "About",
+      href: "#about-us",
+    },
+    {
+      name: "Solutions",
+      href: "#solutions",
+    },
+    {
+      name: "Process",
+      href: "#process",
+    },
+    {
+      name: "Sustainability",
+      href: "#sustainability",
+    },
+    {
+      name: "Gallery",
+      href: "#gallery",
+    },
+    {
+      name: "Contact",
+      href: "#contact",
+    },
   ];
+
+  /* ============================================================
+     NAVBAR VISIBILITY
+     Hide inside Hero
+     Show once About Us reaches the top area
+  ============================================================ */
+
+  useEffect(() => {
+    const handleNavbarVisibility = () => {
+      const aboutSection = document.getElementById("about-us");
+
+      if (!aboutSection) {
+        return;
+      }
+
+      const aboutTop = aboutSection.offsetTop;
+
+      // Navbar starts appearing slightly before
+      // About reaches the very top.
+      const triggerPoint = aboutTop - 80;
+
+      setShowNavbar(window.scrollY >= triggerPoint);
+    };
+
+    handleNavbarVisibility();
+
+    window.addEventListener("scroll", handleNavbarVisibility, {
+      passive: true,
+    });
+
+    window.addEventListener("resize", handleNavbarVisibility);
+
+    return () => {
+      window.removeEventListener("scroll", handleNavbarVisibility);
+      window.removeEventListener("resize", handleNavbarVisibility);
+    };
+  }, []);
+
+  /* ============================================================
+     CHECK CURRENT SECTION
+     Used to determine navbar text color
+  ============================================================ */
 
   useEffect(() => {
     const checkNavbarBackground = () => {
       const navbar = document.querySelector(".navbar") as HTMLElement;
 
-      if (!navbar) return;
+      if (!navbar) {
+        return;
+      }
 
       const rect = navbar.getBoundingClientRect();
+
       const y = window.scrollY + rect.top + rect.height / 2;
 
       const currentSection = Array.from(
         document.querySelectorAll<HTMLElement>("section[id]")
-      ).find(
-        (section) =>
+      ).find((section) => {
+        return (
           y >= section.offsetTop && y < section.offsetTop + section.offsetHeight
-      );
+        );
+      });
 
       const shouldBeWhite =
         !currentSection ||
@@ -39,7 +111,9 @@ const Navbar = () => {
         currentSection.id === "solutions" ||
         currentSection.id === "process" ||
         currentSection.id === "mission" ||
+        currentSection.id === "gallery" ||
         currentSection.id === "contact";
+
       setIsWhiteText(shouldBeWhite);
     };
 
@@ -53,9 +127,15 @@ const Navbar = () => {
 
     return () => {
       window.removeEventListener("scroll", checkNavbarBackground);
+
       window.removeEventListener("resize", checkNavbarBackground);
     };
   }, []);
+
+  /* ============================================================
+     SCROLLED STATE
+     Controls glass navbar styling
+  ============================================================ */
 
   useEffect(() => {
     const handleScroll = () => {
@@ -64,10 +144,18 @@ const Navbar = () => {
 
     handleScroll();
 
-    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleScroll, {
+      passive: true,
+    });
 
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
   }, []);
+
+  /* ============================================================
+     NAVIGATION
+  ============================================================ */
 
   const handleNavLinkClick = (
     e: React.MouseEvent<HTMLAnchorElement>,
@@ -78,8 +166,10 @@ const Navbar = () => {
     const targetElement = document.querySelector(href);
 
     if (targetElement) {
+      const top = targetElement.getBoundingClientRect().top + window.scrollY;
+
       window.scrollTo({
-        top: targetElement.getBoundingClientRect().top + window.scrollY,
+        top,
         behavior: "smooth",
       });
     }
@@ -89,228 +179,504 @@ const Navbar = () => {
 
   return (
     <>
+      {/* ========================================================
+          MAIN NAVBAR
+      ======================================================== */}
+
       <motion.nav
-        initial={{ y: -100, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ duration: 0.4 }}
-        className={`fixed top-0 left-0 w-full z-50 transition-all duration-300 ${
-          isScrolled ? "pt-2 px-2 sm:px-4" : "pt-0 px-0"
-        }`}
+        initial={false}
+        animate={{
+          y: showNavbar ? 0 : -110,
+          opacity: showNavbar ? 1 : 0,
+          pointerEvents: showNavbar ? "auto" : "none",
+        }}
+        transition={{
+          duration: 0.5,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+        className={`
+          fixed
+          left-0
+          top-0
+          z-50
+          w-full
+          transition-all
+          duration-300
+
+          ${isScrolled ? "px-2 pt-2 sm:px-4" : "px-0 pt-0"}
+        `}
       >
         <div
-          className={`navbar relative overflow-hidden transition-all duration-500 ease-out ${
-            isScrolled
-              ? "rounded-2xl bg-white/12 backdrop-blur-sm border border-white/25 shadow-[0_8px_32px_rgba(0,0,0,0.15)]"
-              : "bg-transparent border border-transparent shadow-none"
-          }`}
+          className={`
+            navbar
+            relative
+            overflow-hidden
+            transition-all
+            duration-500
+            ease-out
+
+            ${isScrolled
+              ? `
+                    rounded-2xl
+                    border
+                    border-white/25
+                    bg-white/12
+                    shadow-[0_8px_32px_rgba(0,0,0,0.15)]
+                    backdrop-blur-sm
+                  `
+              : `
+                    border
+                    border-transparent
+                    bg-transparent
+                    shadow-none
+                  `
+            }
+          `}
         >
-          {/* Glass Highlight */}
+          {/* ================= GLASS HIGHLIGHT ================= */}
+
           {isScrolled && (
             <>
-              <div className="pointer-events-none absolute inset-0 rounded-2xl bg-gradient-to-b from-white/25 via-white/5 to-transparent" />
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  inset-0
+                  rounded-2xl
+                  bg-gradient-to-b
+                  from-white/25
+                  via-white/5
+                  to-transparent
+                "
+              />
 
-              <div className="pointer-events-none absolute -top-10 left-1/2 h-20 w-[70%] -translate-x-1/2 rounded-full bg-white/20 blur-3xl" />
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  -top-10
+                  left-1/2
+                  h-20
+                  w-[70%]
+                  -translate-x-1/2
+                  rounded-full
+                  bg-white/20
+                  blur-3xl
+                "
+              />
             </>
           )}
 
-          {/* Logo */}
+          {/* ================= LOGO ================= */}
+
           <div className="navbar-start min-w-0">
             <a
               href="#home"
               onClick={(e) => handleNavLinkClick(e, "#home")}
-              className="flex items-center gap-2 cursor-pointer lg:ml-1 min-w-0"
+              className="
+                flex
+                min-w-0
+                cursor-pointer
+                items-center
+                gap-2
+                lg:ml-1
+              "
             >
               <img
                 src={Logo}
-                alt="Eco-Biomass Solution"
-                className="w-12 h-12 rounded-full object-cover"
+                alt="Earthkeepers' Biomass Solutions Inc."
+                className="
+                  h-12
+                  w-12
+                  rounded-full
+                  object-cover
+                "
               />
 
               <div
-                className={`relative group min-w-0 whitespace-nowrap transition-all duration-500 ${
-                  isWhiteText
-                    ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
+                className={`
+                  relative
+                  min-w-0
+                  whitespace-nowrap
+                  transition-all
+                  duration-500
+
+                  ${isWhiteText
+                    ? `
+                          text-white
+                          drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
+                        `
                     : "text-moss-500"
-                }`}
+                  }
+                `}
               >
-                <div className="font-display font-semibold text-[15px] leading-none tracking-[0.01em] whitespace-nowrap">
+                <div
+                  className="
+                    whitespace-nowrap
+                    font-display
+                    text-[15px]
+                    font-semibold
+                    leading-none
+                    tracking-[0.01em]
+                  "
+                >
                   Earthkeepers'
                 </div>
 
-                <div className="text-[9px] font-medium tracking-[0.18em] opacity-80 uppercase leading-none mt-[3px] whitespace-nowrap">
+                <div
+                  className="
+                    mt-[3px]
+                    whitespace-nowrap
+                    text-[9px]
+                    font-medium
+                    uppercase
+                    leading-none
+                    tracking-[0.18em]
+                    opacity-80
+                  "
+                >
                   Biomass Solutions Inc.
                 </div>
               </div>
             </a>
           </div>
-          {/* Desktop Navigation */}
-          <div className="navbar-center hidden lg:flex gap-8">
+
+          {/* ================= DESKTOP NAVIGATION ================= */}
+
+          <div
+            className="
+              navbar-center
+              hidden
+              gap-8
+              lg:flex
+            "
+          >
             {navLinks.map((link, index) => (
               <motion.a
                 key={link.name}
                 href={link.href}
                 onClick={(e) => handleNavLinkClick(e, link.href)}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-                whileHover={{ y: -2 }}
-                className={`relative group transition-all duration-500 ${
-                  isWhiteText
-                    ? "text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]"
+                initial={{
+                  opacity: 0,
+                  y: 10,
+                }}
+                animate={{
+                  opacity: showNavbar ? 1 : 0,
+                  y: showNavbar ? 0 : 10,
+                }}
+                transition={{
+                  delay: showNavbar ? index * 0.04 : 0,
+                }}
+                whileHover={{
+                  y: -2,
+                }}
+                className={`
+                  group
+                  relative
+                  transition-all
+                  duration-500
+
+                  ${isWhiteText
+                    ? `
+                          text-white
+                          drop-shadow-[0_2px_8px_rgba(0,0,0,0.45)]
+                        `
                     : "text-moss-500"
-                } hover:text-gold-300`}
+                  }
+
+                  hover:text-gold-300
+                `}
               >
                 {link.name}
 
-                <span className="absolute left-0 -bottom-1 h-0.5 w-0 bg-gold-300 transition-all duration-300 group-hover:w-full" />
+                <span
+                  className="
+                    absolute
+                    -bottom-1
+                    left-0
+                    h-0.5
+                    w-0
+                    bg-gold-300
+                    transition-all
+                    duration-300
+                    group-hover:w-full
+                  "
+                />
               </motion.a>
             ))}
           </div>
-          {/* Right Side */}
+
+          {/* ================= RIGHT SIDE ================= */}
+
           <div className="navbar-end gap-2">
+            {/* Desktop CTA */}
+
             <div className="hidden lg:block">
               <button
-                className="btn rounded-box bg-gold-500 border-gold-500/20 mr-1"
+                className="
+                  btn
+                  mr-1
+                  rounded-box
+                  border-gold-500/20
+                  bg-gold-500
+                  text-white
+                  transition-all
+                  duration-300
+                  hover:bg-gold-400
+                "
                 onClick={() =>
-                  document
-                    .getElementById("contact")
-                    ?.scrollIntoView({ behavior: "smooth" })
+                  document.getElementById("contact")?.scrollIntoView({
+                    behavior: "smooth",
+                  })
                 }
               >
                 Partner With Us
               </button>
             </div>
 
+            {/* Mobile Menu Button */}
+
             <button
               className={`
-              lg:hidden
-              flex h-10 w-12 items-center justify-center
-              rounded-xl
-              border
-              backdrop-blur-md
-              transition-all duration-300
+                flex
+                h-10
+                w-12
+                items-center
+                justify-center
+                rounded-xl
+                border
+                backdrop-blur-md
+                transition-all
+                duration-300
+                lg:hidden
 
-              ${
-                isWhiteText
+                ${isWhiteText
                   ? `
-                    border-beige-100/20
-                    bg-forest-900/30
-                    text-beige-100
-                    hover:border-gold-400/40
-                    hover:bg-forest-800/50
-                  `
+                        border-beige-100/20
+                        bg-forest-900/30
+                        text-beige-100
+                        hover:border-gold-400/40
+                        hover:bg-forest-800/50
+                      `
                   : `
-                    border-forest-800/15
-                    bg-beige-100/70
-                    text-forest-800
-                    hover:border-gold-500/40
-                    hover:bg-beige-200
-                  `
-              }
-            `}
+                        border-forest-800/15
+                        bg-beige-100/70
+                        text-forest-800
+                        hover:border-gold-500/40
+                        hover:bg-beige-200
+                      `
+                }
+              `}
               onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+              aria-label="Toggle navigation menu"
             >
               {isMobileMenuOpen ? (
-                <X className="h-5 w-5 transition-colors duration-300" />
+                <X
+                  className="
+                    h-5
+                    w-5
+                    transition-colors
+                    duration-300
+                  "
+                />
               ) : (
-                <Menu className="h-5 w-8 transition-colors duration-300" />
+                <Menu
+                  className="
+                    h-5
+                    w-8
+                    transition-colors
+                    duration-300
+                  "
+                />
               )}
             </button>
           </div>
         </div>
       </motion.nav>
 
-      {/* Mobile Menu */}
+      {/* ========================================================
+          MOBILE MENU
+      ======================================================== */}
+
       <AnimatePresence>
-        {isMobileMenuOpen && (
+        {isMobileMenuOpen && showNavbar && (
           <>
-            {/* Backdrop */}
+            {/* ================= BACKDROP ================= */}
+
             <motion.div
-              className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              className="
+                fixed
+                inset-0
+                z-40
+                bg-black/40
+                backdrop-blur-sm
+                lg:hidden
+              "
+              initial={{
+                opacity: 0,
+              }}
+              animate={{
+                opacity: 1,
+              }}
+              exit={{
+                opacity: 0,
+              }}
               onClick={() => setIsMobileMenuOpen(false)}
             />
 
-            {/* Drawer */}
+            {/* ================= DRAWER ================= */}
+
             <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
+              initial={{
+                x: "100%",
+              }}
+              animate={{
+                x: 0,
+              }}
+              exit={{
+                x: "100%",
+              }}
               transition={{
                 duration: 0.35,
                 ease: [0.22, 1, 0.36, 1],
               }}
               className="
-                fixed top-2 right-2 bottom-2
+                fixed
+                bottom-2
+                right-2
+                top-2
                 z-50
                 w-[calc(100%-1rem)]
-                sm:w-80
-                rounded-2xl
                 overflow-hidden
+                rounded-2xl
+                border
+                border-[#2B2118]/10
                 bg-[#FAF7F2]
-                border border-[#2B2118]/10
                 shadow-[0_8px_40px_rgba(0,0,0,0.18)]
+                sm:w-80
                 lg:hidden
               "
             >
-              {/* Subtle glass highlight */}
-              <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-white/70 via-transparent to-[#7A3B1E]/5" />
+              {/* Glass highlight */}
 
-              <div className="relative flex flex-col h-full p-6 sm:p-8">
-                {/* Header */}
-                <div className="flex items-center justify-between mb-10">
+              <div
+                className="
+                  pointer-events-none
+                  absolute
+                  inset-0
+                  bg-gradient-to-b
+                  from-white/70
+                  via-transparent
+                  to-[#7A3B1E]/5
+                "
+              />
+
+              <div
+                className="
+                  relative
+                  flex
+                  h-full
+                  flex-col
+                  p-6
+                  sm:p-8
+                "
+              >
+                {/* ================= DRAWER HEADER ================= */}
+
+                <div
+                  className="
+                    mb-10
+                    flex
+                    items-center
+                    justify-between
+                  "
+                >
                   <a
                     href="#home"
                     onClick={(e) => handleNavLinkClick(e, "#home")}
-                    className="flex items-center gap-3"
+                    className="
+                      flex
+                      items-center
+                      gap-3
+                    "
                   >
                     <img
                       src={Logo}
                       alt="Earthkeepers' Biomass Solutions Inc."
-                      className="w-11 h-11 rounded-full object-cover"
+                      className="
+                        h-11
+                        w-11
+                        rounded-full
+                        object-cover
+                      "
                     />
 
                     <div className="text-[#2B2118]">
-                      <div className="font-display font-semibold text-sm leading-none">
+                      <div
+                        className="
+                          font-display
+                          text-sm
+                          font-semibold
+                          leading-none
+                        "
+                      >
                         Earthkeepers'
                       </div>
 
-                      <div className="text-[8px] font-medium tracking-[0.16em] uppercase opacity-70 mt-1">
+                      <div
+                        className="
+                          mt-1
+                          text-[8px]
+                          font-medium
+                          uppercase
+                          tracking-[0.16em]
+                          opacity-70
+                        "
+                      >
                         Biomass Solutions Inc.
                       </div>
                     </div>
                   </a>
 
-                  {/* Close */}
                   <button
                     onClick={() => setIsMobileMenuOpen(false)}
                     className="
-                      w-10 h-10
+                      flex
+                      h-10
+                      w-10
+                      items-center
+                      justify-center
                       rounded-xl
-                      flex items-center justify-center
+                      border
+                      border-[#7A3B1E]/15
                       bg-[#7A3B1E]/10
-                      border border-[#7A3B1E]/15
                       text-[#2B2118]
+                      transition-all
+                      duration-300
                       hover:bg-[#7A3B1E]/15
-                      transition-all duration-300
                     "
                     aria-label="Close menu"
                   >
-                    <X className="w-5 h-5" />
+                    <X className="h-5 w-5" />
                   </button>
                 </div>
 
-                {/* Navigation */}
+                {/* ================= MOBILE LINKS ================= */}
+
                 <nav className="flex flex-col gap-2">
                   {navLinks.map((link, index) => (
                     <motion.a
                       key={link.name}
                       href={link.href}
                       onClick={(e) => handleNavLinkClick(e, link.href)}
-                      initial={{ opacity: 0, x: 25 }}
-                      animate={{ opacity: 1, x: 0 }}
+                      initial={{
+                        opacity: 0,
+                        x: 25,
+                      }}
+                      animate={{
+                        opacity: 1,
+                        x: 0,
+                      }}
                       transition={{
                         delay: index * 0.06,
                         duration: 0.3,
@@ -318,26 +684,31 @@ const Navbar = () => {
                       className="
                         group
                         relative
-                        flex items-center
-                        px-4 py-3
+                        flex
+                        items-center
                         rounded-xl
-                        text-[#2B2118]
+                        px-4
+                        py-3
                         font-medium
-                        transition-all duration-300
+                        text-[#2B2118]
+                        transition-all
+                        duration-300
                         hover:bg-[#7A3B1E]/8
                         hover:text-[#7A3B1E]
                       "
                     >
-                      {/* Active/hover indicator */}
                       <span
                         className="
-                        absolute left-0
-                        w-1 h-0
-                        rounded-full
-                        bg-[#C49A3A]
-                        transition-all duration-300
-                        group-hover:h-6
-                      "
+                          absolute
+                          left-0
+                          h-0
+                          w-1
+                          rounded-full
+                          bg-[#C49A3A]
+                          transition-all
+                          duration-300
+                          group-hover:h-6
+                        "
                       />
 
                       {link.name}
@@ -345,34 +716,44 @@ const Navbar = () => {
                   ))}
                 </nav>
 
-                {/* Bottom CTA */}
+                {/* ================= MOBILE CTA ================= */}
+
                 <div className="mt-auto pt-8">
                   <button
                     onClick={() => {
-                      document
-                        .getElementById("contact")
-                        ?.scrollIntoView({ behavior: "smooth" });
+                      document.getElementById("contact")?.scrollIntoView({
+                        behavior: "smooth",
+                      });
 
                       setIsMobileMenuOpen(false);
                     }}
                     className="
-                      w-full
                       h-12
+                      w-full
                       rounded-xl
+                      border
+                      border-[#C49A3A]
                       bg-[#C49A3A]
-                      border border-[#C49A3A]
-                      text-[#2B2118]
                       font-semibold
+                      text-[#2B2118]
                       shadow-[0_6px_20px_rgba(196,154,58,0.25)]
-                      hover:bg-[#B58B32]
+                      transition-all
+                      duration-300
                       hover:-translate-y-0.5
-                      transition-all duration-300
+                      hover:bg-[#B58B32]
                     "
                   >
                     Partner With Us
                   </button>
 
-                  <p className="text-center text-xs text-[#2B2118]/50 mt-4">
+                  <p
+                    className="
+                      mt-4
+                      text-center
+                      text-xs
+                      text-[#2B2118]/50
+                    "
+                  >
                     Building a sustainable energy future
                   </p>
                 </div>

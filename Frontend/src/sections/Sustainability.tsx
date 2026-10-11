@@ -1,7 +1,7 @@
 import { motion } from "framer-motion";
 import { Users, Sprout, HandHeart, Leaf } from "lucide-react";
 import IP from "/images/IP.jpg";
-import People from "/images/PEOPLE.jpg";
+import People from "../assets/gallery/Picnitita.png";
 
 const impactItems = [
   {
@@ -483,8 +483,9 @@ export default function Sustainability() {
                   md:text-xl
                 "
               >
-                Building a more sustainable energy future,
-                <span className="italic text-moss-600"> together.</span>
+                "There can be no true democracy unless every citizen could share
+                the wealth of the 
+                <span className="italic text-moss-600"> nation".</span>
               </p>
             </motion.div>
           </div>
