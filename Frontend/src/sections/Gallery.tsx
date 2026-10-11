@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 
-import GalleryOne from "../assets/gallery/gallers-1.jpg";
+import GalleryOne from "../assets/gallery/gallerys-1.jpg";
 import GalleryTwo from "../assets/gallery/gallerys-2.jpg";
 import GalleryThree from "../assets/gallery/gallerys-3.jpg";
 import GalleryFour from "../assets/gallery/gallerys-4.jpg";
