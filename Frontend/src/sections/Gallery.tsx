@@ -1,61 +1,83 @@
 import { useRef } from "react";
-import {
-    motion,
-    MotionValue,
-    useScroll,
-    useTransform,
-} from "framer-motion";
+import { motion, MotionValue, useScroll, useTransform } from "framer-motion";
 
 import GalleryOne from "../assets/gallery/gallery-1.jpg";
 import GalleryTwo from "../assets/gallery/gallery-2.jpg";
 import GalleryThree from "../assets/gallery/gallery-3.jpg";
 import GalleryFour from "../assets/gallery/gallery-4.jpg";
+import GalleryFive from "../assets/gallery/gallery-5.JPG";
+import GallerySix from "../assets/gallery/gallery-6.jpg";
+import GallerySeven from "../assets/gallery/gallery-7.JPG";
+import GalleryEight from "../assets/gallery/gallery-8.jpg";
 
 const galleryItems = [
-    {
-        image: GalleryOne,
-        number: "01",
-        title: "Sustainable Biomass",
-        description:
-            "Transforming natural resources into responsible renewable energy solutions.",
-    },
-    {
-        image: GalleryTwo,
-        number: "02",
-        title: "Community Partnerships",
-        description:
-            "Working alongside local communities to create long-term sustainable value.",
-    },
-    {
-        image: GalleryThree,
-        number: "03",
-        title: "Palawan Operations",
-        description:
-            "Building renewable-energy opportunities while respecting the natural environment.",
-    },
-    {
-        image: GalleryFour,
-        number: "04",
-        title: "A Cleaner Future",
-        description:
-            "Creating practical biomass solutions for a more sustainable Philippines.",
-    },
+  {
+    image: GalleryOne,
+    number: "01",
+    title: "Sustainable Biomass",
+    description:
+      "Transforming natural resources into responsible renewable energy solutions.",
+  },
+  {
+    image: GalleryTwo,
+    number: "02",
+    title: "Community Partnerships",
+    description:
+      "Working alongside local communities to create long-term sustainable value.",
+  },
+  {
+    image: GalleryThree,
+    number: "03",
+    title: "Palawan Operations",
+    description:
+      "Building renewable-energy opportunities while respecting the natural environment.",
+  },
+  {
+    image: GalleryFour,
+    number: "04",
+    title: "A Cleaner Future",
+    description:
+      "Creating practical biomass solutions for a more sustainable Philippines.",
+  },
+  {
+    image: GalleryFive,
+    number: "05",
+    title: "Sustainable Biomass",
+    description:
+      "Transforming natural resources into responsible renewable energy solutions.",
+  },
+  {
+    image: GallerySix,
+    number: "06",
+    title: "Community Partnerships",
+    description:
+      "Working alongside local communities to create long-term sustainable value.",
+  },
+  {
+    image: GallerySeven,
+    number: "07",
+    title: "Palawan Operations",
+    description:
+      "Building renewable-energy opportunities while respecting the natural environment.",
+  },
+  {
+    image: GalleryEight,
+    number: "08",
+    title: "A Cleaner Future",
+    description:
+      "Creating practical biomass solutions for a more sustainable Philippines.",
+  },
 ];
 
 type GalleryCardProps = {
-    item: (typeof galleryItems)[number];
-    index: number;
-    total: number;
-    scrollProgress: MotionValue<number>;
+  item: (typeof galleryItems)[number];
+  index: number;
+  total: number;
+  scrollProgress: MotionValue<number>;
 };
 
-function GalleryCard({
-    item,
-    index,
-    total,
-    scrollProgress,
-}: GalleryCardProps) {
-    /*
+function GalleryCard({ item, index, total, scrollProgress }: GalleryCardProps) {
+  /*
       Example with 4 images:
   
       Image 1 = 0.00 → 0.25
@@ -67,58 +89,46 @@ function GalleryCard({
       RIGHT → CENTER → STAYS
     */
 
-    const sectionSize = 1 / total;
+  const sectionSize = 1 / total;
 
-    const start = index * sectionSize;
+  const start = index * sectionSize;
 
-    /*
+  /*
       The image reaches center before the next
       image begins its animation.
   
       Increase 0.5 if you want slower entry.
       Decrease it if you want faster entry.
     */
-    const arrive = start + sectionSize * 0.5;
+  const arrive = start + sectionSize * 0.5;
 
-    /*
+  /*
       Every image comes from the RIGHT.
   
       After reaching 0%, Framer Motion keeps
       the final value at 0%, so the image stays
       centered forever.
     */
-    const x = useTransform(
-        scrollProgress,
-        [start, arrive],
-        ["115%", "0%"]
-    );
+  const x = useTransform(scrollProgress, [start, arrive], ["115%", "0%"]);
 
-    /*
+  /*
       Subtle scale makes the card feel less flat.
     */
-    const scale = useTransform(
-        scrollProgress,
-        [start, arrive],
-        [0.96, 1]
-    );
+  const scale = useTransform(scrollProgress, [start, arrive], [0.96, 1]);
 
-    /*
+  /*
       Subtle image zoom while entering.
     */
-    const imageScale = useTransform(
-        scrollProgress,
-        [start, arrive],
-        [1.08, 1]
-    );
+  const imageScale = useTransform(scrollProgress, [start, arrive], [1.08, 1]);
 
-    return (
-        <motion.article
-            style={{
-                x,
-                scale,
-                zIndex: index + 10,
-            }}
-            className="
+  return (
+    <motion.article
+      style={{
+        x,
+        scale,
+        zIndex: index + 10,
+      }}
+      className="
         absolute
         inset-0
         flex
@@ -128,33 +138,33 @@ function GalleryCard({
         md:px-10
         lg:px-12
       "
-        >
-            <div
-                className="
+    >
+      <div
+        className="
           relative
           mx-auto
           w-full
           max-w-6xl
         "
-            >
-                {/* ================= IMAGE CARD ================= */}
+      >
+        {/* ================= IMAGE CARD ================= */}
 
-                <div
-                    className="
+        <div
+          className="
             relative
             overflow-hidden
             rounded-[2rem]
             bg-forest-900
             shadow-[0_35px_100px_rgba(0,0,0,0.45)]
           "
-                >
-                    <motion.img
-                        src={item.image}
-                        alt={item.title}
-                        style={{
-                            scale: imageScale,
-                        }}
-                        className="
+        >
+          <motion.img
+            src={item.image}
+            alt={item.title}
+            style={{
+              scale: imageScale,
+            }}
+            className="
               h-[500px]
               w-full
               object-cover
@@ -162,12 +172,12 @@ function GalleryCard({
               md:h-[600px]
               lg:h-[660px]
             "
-                    />
+          />
 
-                    {/* ================= DARK OVERLAY ================= */}
+          {/* ================= DARK OVERLAY ================= */}
 
-                    <div
-                        className="
+          <div
+            className="
               pointer-events-none
               absolute
               inset-0
@@ -176,12 +186,12 @@ function GalleryCard({
               via-forest-950/15
               to-transparent
             "
-                    />
+          />
 
-                    {/* ================= IMAGE NUMBER ================= */}
+          {/* ================= IMAGE NUMBER ================= */}
 
-                    <div
-                        className="
+          <div
+            className="
               absolute
               left-6
               top-6
@@ -202,14 +212,14 @@ function GalleryCard({
               md:left-8
               md:top-8
             "
-                    >
-                        {item.number}
-                    </div>
+          >
+            {item.number}
+          </div>
 
-                    {/* ================= CONTENT ================= */}
+          {/* ================= CONTENT ================= */}
 
-                    <div
-                        className="
+          <div
+            className="
               absolute
               bottom-0
               left-0
@@ -218,9 +228,9 @@ function GalleryCard({
               md:p-10
               lg:p-12
             "
-                    >
-                        <div
-                            className="
+          >
+            <div
+              className="
                 mb-3
                 flex
                 items-center
@@ -232,14 +242,13 @@ function GalleryCard({
                 tracking-[0.24em]
                 text-gold-300
               "
-                        >
-                            <span className="h-px w-8 bg-gold-300" />
+            >
+              <span className="h-px w-8 bg-gold-300" />
+              Gallery
+            </div>
 
-                            Gallery
-                        </div>
-
-                        <h3
-                            className="
+            <h3
+              className="
                 max-w-2xl
                 font-display
                 text-3xl
@@ -250,12 +259,12 @@ function GalleryCard({
                 md:text-5xl
                 lg:text-6xl
               "
-                        >
-                            {item.title}
-                        </h3>
+            >
+              {item.title}
+            </h3>
 
-                        <p
-                            className="
+            <p
+              className="
                 mt-4
                 max-w-xl
                 font-body
@@ -264,89 +273,89 @@ function GalleryCard({
                 text-white/65
                 md:text-base
               "
-                        >
-                            {item.description}
-                        </p>
+            >
+              {item.description}
+            </p>
 
-                        {/* Counter */}
-                        <div
-                            className="
+            {/* Counter */}
+            <div
+              className="
                 mt-6
                 flex
                 items-center
                 gap-3
               "
-                        >
-                            <span
-                                className="
+            >
+              <span
+                className="
                   font-body
                   text-xs
                   font-semibold
                   text-white
                 "
-                            >
-                                {item.number}
-                            </span>
+              >
+                {item.number}
+              </span>
 
-                            <span
-                                className="
+              <span
+                className="
                   h-px
                   w-8
                   bg-white/25
                 "
-                            />
+              />
 
-                            <span
-                                className="
+              <span
+                className="
                   font-body
                   text-xs
                   text-white/40
                 "
-                            >
-                                {String(total).padStart(2, "0")}
-                            </span>
-                        </div>
-                    </div>
-                </div>
+              >
+                {String(total).padStart(2, "0")}
+              </span>
             </div>
-        </motion.article>
-    );
+          </div>
+        </div>
+      </div>
+    </motion.article>
+  );
 }
 
 export default function Gallery() {
-    const galleryRef = useRef<HTMLElement | null>(null);
+  const galleryRef = useRef<HTMLElement | null>(null);
 
-    const { scrollYProgress } = useScroll({
-        target: galleryRef,
-        offset: ["start start", "end end"],
-    });
+  const { scrollYProgress } = useScroll({
+    target: galleryRef,
+    offset: ["start start", "end end"],
+  });
 
-    return (
-        <section
-            ref={galleryRef}
-            id="gallery"
-            className="
+  return (
+    <section
+      ref={galleryRef}
+      id="gallery"
+      className="
             relative
             h-[550vh]
             bg-forest-950
         "
-        >
-            {/* ======================================================
+    >
+      {/* ======================================================
             STICKY VIEWPORT
         ====================================================== */}
 
-            <div
-                className="
+      <div
+        className="
                 sticky
                 top-0
                 h-screen
                 overflow-hidden
                 "
-            >
-                {/* ================= BACKGROUND ================= */}
+      >
+        {/* ================= BACKGROUND ================= */}
 
-                <div
-                    className="
+        <div
+          className="
                     pointer-events-none
                     absolute
                     inset-0
@@ -355,12 +364,12 @@ export default function Gallery() {
                     via-forest-900
                     to-forest-950
                 "
-                />
+        />
 
-                {/* ================= AMBIENT GLOW ================= */}
+        {/* ================= AMBIENT GLOW ================= */}
 
-                <div
-                    className="
+        <div
+          className="
                     pointer-events-none
                     absolute
                     -left-40
@@ -372,10 +381,10 @@ export default function Gallery() {
                     bg-moss-500/10
                     blur-3xl
                 "
-                />
+        />
 
-                <div
-                    className="
+        <div
+          className="
                     pointer-events-none
                     absolute
                     -right-40
@@ -386,10 +395,10 @@ export default function Gallery() {
                     bg-gold-500/5
                     blur-3xl
                 "
-                />
+        />
 
-                <div
-                    className="
+        <div
+          className="
                     pointer-events-none
                     absolute
                     left-0
@@ -405,10 +414,10 @@ export default function Gallery() {
                     md:px-10
                     lg:px-12
                 "
-                >
-                    <div>
-                        <div
-                            className="
+        >
+          <div>
+            <div
+              className="
                             flex
                             items-center
                             gap-3
@@ -419,14 +428,13 @@ export default function Gallery() {
                             tracking-[0.25em]
                             text-gold-400
                         "
-                        >
-                            <span className="h-px w-7 bg-gold-400" />
+            >
+              <span className="h-px w-7 bg-gold-400" />
+              Our Gallery
+            </div>
 
-                            Our Gallery
-                        </div>
-
-                        <h2
-                            className="
+            <h2
+              className="
                             mt-2
                             font-display
                             text-xl
@@ -434,13 +442,13 @@ export default function Gallery() {
                             text-white
                             md:text-2xl
                         "
-                        >
-                            Through Our Lens
-                        </h2>
-                    </div>
+            >
+              Through Our Lens
+            </h2>
+          </div>
 
-                    <div
-                        className="
+          <div
+            className="
                         hidden
                         items-center
                         gap-3
@@ -452,36 +460,35 @@ export default function Gallery() {
                         text-white/40
                         md:flex
                         "
-                    >
-                        Keep scrolling
+          >
+            Keep scrolling
+            <span className="h-px w-10 bg-white/20" />
+          </div>
+        </div>
 
-                        <span className="h-px w-10 bg-white/20" />
-                    </div>
-                </div>
-
-                <div
-                    className="
+        <div
+          className="
                     relative
                     h-full
                     w-full
                 "
-                >
-                    {galleryItems.map((item, index) => (
-                        <GalleryCard
-                            key={item.number}
-                            item={item}
-                            index={index}
-                            total={galleryItems.length}
-                            scrollProgress={scrollYProgress}
-                        />
-                    ))}
-                </div>
+        >
+          {galleryItems.map((item, index) => (
+            <GalleryCard
+              key={item.number}
+              item={item}
+              index={index}
+              total={galleryItems.length}
+              scrollProgress={scrollYProgress}
+            />
+          ))}
+        </div>
 
-                <motion.div
-                    style={{
-                        scaleX: scrollYProgress,
-                    }}
-                    className="
+        <motion.div
+          style={{
+            scaleX: scrollYProgress,
+          }}
+          className="
                     absolute
                     bottom-0
                     left-0
@@ -491,8 +498,8 @@ export default function Gallery() {
                     origin-left
                     bg-gold-400
                 "
-                />
-            </div>
-        </section>
-    );
+        />
+      </div>
+    </section>
+  );
 }

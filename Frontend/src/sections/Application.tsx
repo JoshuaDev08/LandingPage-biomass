@@ -10,7 +10,7 @@ import {
   ArrowLeft,
 } from "lucide-react";
 
-import Energy from "/images/Energy.jpeg";
+import Energy from "/images/Biofuelenergy.png";
 import Powerplant from "/images/power-plant.jpg";
 import Graphene from "/images/graphene.png";
 import Construction from "/images/construction_application.png";
@@ -36,7 +36,7 @@ const applications: Application[] = [
     description:
       "Processed wood biomass can be used as an alternative material component for construction applications, including biomass-based hollow blocks and other sustainable building materials.",
     image: Construction,
-    download: "/downloads/2316LanceIanLopez.pdf",
+    download: "/downloads/Constructionwhitepaper.pdf",
   },
   {
     number: "02",

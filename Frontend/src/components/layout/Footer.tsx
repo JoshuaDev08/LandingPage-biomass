@@ -1,5 +1,6 @@
 import { useCallback } from "react";
 import Logo from "../../assets/Logo.png";
+import GyraLogo from "../../assets/gyra_logo.png";
 
 const companyLinks = [
   { label: "About Us", href: "#about" },
@@ -59,10 +60,9 @@ export default function Footer() {
         block: "start",
       });
 
-      // Update URL without jumping
       window.history.pushState(null, "", href);
     },
-    []
+    [],
   );
 
   return (
@@ -81,15 +81,43 @@ export default function Footer() {
             <a
               href="#home"
               onClick={(e) => handleNavClick(e, "#home")}
-              className="group mb-6 inline-flex items-center gap-3"
+              className="
+                group
+                mb-6
+                inline-flex
+                items-center
+                gap-4
+              "
             >
-              {/* Logo */}
-              <img
-                src={Logo}
-                alt="Eco-Biomass Solution"
-                className="w-12 h-12 rounded-full object-cover"
-              />
+              {/* Earthkeepers Logo */}
+              <div
+                className="
+                  flex
+                  h-14
+                  w-14
+                  shrink-0
+                  items-center
+                  justify-center
+                  overflow-hidden
+                  rounded-full
+                  bg-white/5
+                "
+              >
+                <img
+                  src={Logo}
+                  alt="Earthkeepers Biomass Solutions Inc."
+                  className="
+                    h-full
+                    w-full
+                    object-contain
+                    transition-transform
+                    duration-300
+                    group-hover:scale-105
+                  "
+                />
+              </div>
 
+              {/* Earthkeepers Name */}
               <div>
                 <div className="font-display text-base font-semibold leading-none text-beige-200">
                   Earthkeepers'
@@ -130,6 +158,7 @@ export default function Footer() {
             {/* Location */}
             <div
               className="
+                mb-8
                 inline-flex
                 items-center
                 gap-2
@@ -155,6 +184,85 @@ export default function Footer() {
                 <circle cx="12" cy="10" r="3" />
               </svg>
               Palawan, Philippines
+            </div>
+
+            {/* =================================================
+                POWERED BY GYRA
+            ================================================== */}
+
+            <div
+              className="
+                flex
+                w-fit
+                items-center
+                gap-3
+                border-t
+                border-forest-800/80
+                pt-5
+              "
+            >
+              {/* Gyra Logo */}
+              <div
+                className="
+                  flex  
+                  h-16
+                  w-16
+                  shrink-0
+                  items-center
+                  justify-center
+                  overflow-hidden
+                  rounded-md
+                "
+              >
+                <img
+                  src={GyraLogo}
+                  alt="Gyra Digital"
+                  className="h-full w-full object-contain"
+                />
+              </div>
+
+              {/* Gyra Text */}
+              <div>
+                <p
+                  className="
+                    font-body
+                    text-[8px]
+                    font-medium
+                    uppercase
+                    tracking-[0.18em]
+                    text-moss-600
+                  "
+                >
+                  Powered by
+                </p>
+
+                <div className="mt-1 flex items-baseline gap-1">
+                  <span
+                    className="
+                      font-display
+                      text-sm
+                      font-semibold
+                      leading-none
+                      text-beige-300
+                    "
+                  >
+                    Gyra
+                  </span>
+
+                  <span
+                    className="
+                      font-body
+                      text-[9px]
+                      font-medium
+                      uppercase
+                      tracking-[0.12em]
+                      text-gold-400
+                    "
+                  >
+                    Digital
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -291,7 +399,7 @@ export default function Footer() {
 
         <div
           className="
-            mt-16
+            mt-4
             flex
             flex-col
             gap-4
