@@ -190,7 +190,10 @@ export default function Footer() {
                 POWERED BY GYRA
             ================================================== */}
 
-            <div
+            <a
+              href="https://www.gyradigital.net/"
+              target="_blank"
+              rel="noopener noreferrer"
               className="
                 flex
                 w-fit
@@ -199,12 +202,15 @@ export default function Footer() {
                 border-t
                 border-forest-800/80
                 pt-5
+                transition-opacity
+                duration-300
+                hover:opacity-80
               "
             >
               {/* Gyra Logo */}
               <div
                 className="
-                  flex  
+                  flex
                   h-16
                   w-16
                   shrink-0
@@ -262,8 +268,23 @@ export default function Footer() {
                     Digital
                   </span>
                 </div>
+
+                <p
+                  className="
+                    mt-1
+                    font-body
+                    text-[9px]
+                    tracking-[0.08em]
+                    text-moss-600
+                    transition-colors
+                    duration-300
+                    hover:text-gold-400
+                  "
+                >
+                  www.gyradigital.net
+                </p>
               </div>
-            </div>
+            </a>
           </div>
 
           {/* =================================================
